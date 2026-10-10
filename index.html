@@ -1,427 +1,357 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APEX MOTION | Performance Club</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Demo</title>
+
 <style>
-:root{
-  --bg:#f3f5f7;
-  --white:#fff;
-  --ink:#111a2b;
-  --blue:#245bff;
-  --cyan:#70e6f5;
-  --muted:#788294;
-  --line:#dfe4ec;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:Manrope,sans-serif;overflow-x:hidden}
-a{text-decoration:none;color:inherit}
-button,input{font:inherit}
-.container{width:min(1180px,90%);margin:auto}
-nav{position:fixed;z-index:99;top:0;left:0;width:100%;background:#f3f5f7d9;backdrop-filter:blur(20px);border-bottom:1px solid #dce1e9}
-.nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{font-family:"Space Grotesk",sans-serif;font-size:22px;font-weight:700;letter-spacing:-1.4px}
-.logo span{color:var(--blue)}
-.nav-links{display:flex;gap:28px;font-size:11px;font-weight:700;color:#657084}
-.nav-links a:hover{color:var(--blue)}
-.nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 20px;background:var(--blue);color:white;border:1px solid var(--blue);font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;transition:.25s}
-.nav-cta:hover,.btn:hover{background:var(--ink);border-color:var(--ink);transform:translateY(-3px)}
-.menu{display:none;border:0;background:none;font-size:25px;color:var(--ink)}
-.hero{min-height:760px;position:relative;display:flex;align-items:center;padding:130px 0 80px;overflow:hidden;background:radial-gradient(ellipse at 76% 45%,#bceef4 0,transparent 34%),linear-gradient(115deg,#f8f9fb,#edf1f6)}
-.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#a6b4c51b 1px,transparent 1px),linear-gradient(90deg,#a6b4c51b 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(90deg,black,transparent 85%)}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:center;position:relative;z-index:2}
-.eyebrow{display:flex;align-items:center;gap:10px;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--blue)}
-.eyebrow:before{content:"";width:24px;height:2px;background:var(--blue)}
-.hero h1{font-family:"Space Grotesk",sans-serif;font-size:clamp(55px,7.2vw,94px);line-height:.96;letter-spacing:-6px;margin:25px 0;font-weight:700}
-.hero h1 span{color:var(--blue)}
-.hero-copy>p{font-size:13px;line-height:2;color:#6d7787;max-width:440px}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:29px}
-.btn-light{background:transparent;color:var(--ink);border-color:#c8d0dc}
-.hero-stats{display:flex;gap:32px;margin-top:43px}
-.hero-stats strong{font-family:"Space Grotesk",sans-serif;font-size:24px;display:block;letter-spacing:-1px}
-.hero-stats span{display:block;font-size:9px;color:var(--muted);letter-spacing:1px;margin-top:5px}
-.stage{height:460px;position:relative;display:grid;place-items:center;perspective:1100px}
-.stage-grid{position:absolute;width:390px;height:390px;border:1px solid #245bff22;border-radius:50%;box-shadow:0 0 0 35px #245bff08,0 0 0 70px #245bff05}
-.stage-grid:before,.stage-grid:after{content:"";position:absolute;inset:0;border:1px dashed #245bff35;border-radius:50%;transform:rotateX(65deg) scaleY(.7)}
-.stage-grid:after{transform:rotateY(65deg) scaleX(.7)}
-.sculpture{width:200px;height:200px;position:relative;transform-style:preserve-3d;animation:sculpture 13s linear infinite}
-.face{position:absolute;inset:0;border:2px solid #245bff;background:linear-gradient(135deg,#ffffffb5,#70e6f52b);backdrop-filter:blur(2px);box-shadow:inset 0 0 35px #245bff17,0 0 20px #245bff12}
-.face:nth-child(1){transform:translateZ(100px)}
-.face:nth-child(2){transform:rotateY(90deg) translateZ(100px)}
-.face:nth-child(3){transform:rotateY(180deg) translateZ(100px)}
-.face:nth-child(4){transform:rotateY(-90deg) translateZ(100px)}
-.face:nth-child(5){transform:rotateX(90deg) translateZ(100px)}
-.face:nth-child(6){transform:rotateX(-90deg) translateZ(100px)}
-.sculpture-core{position:absolute;inset:55px;border:3px solid var(--blue);transform:rotate(45deg);box-shadow:0 0 28px #245bff38}
-.sculpture-core:before{content:"";position:absolute;inset:15px;border:2px solid #70bfe7;transform:rotate(20deg)}
-@keyframes sculpture{0%{transform:rotateX(-22deg) rotateY(0) rotateZ(0)}100%{transform:rotateX(338deg) rotateY(360deg) rotateZ(360deg)}}
-.stage-label{position:absolute;background:#ffffffc9;backdrop-filter:blur(10px);border:1px solid #ffffff;padding:12px 15px;font-size:9px;font-weight:800;letter-spacing:1px;box-shadow:0 12px 30px #2639580c}
-.stage-label span{display:block;color:var(--blue);margin-top:5px;font-size:8px}
-.stage-label.one{top:42px;right:0}
-.stage-label.two{bottom:46px;left:0}
-.stage-number{position:absolute;top:35px;left:10px;font-family:"Space Grotesk";font-size:12px;color:var(--blue)}
-.ticker{overflow:hidden;background:var(--ink);color:white;padding:17px 0}
-.ticker-track{display:flex;width:max-content;animation:marquee 28s linear infinite}
-.ticker span{font-family:"Space Grotesk";font-size:13px;font-weight:700;letter-spacing:2px;margin:0 27px}
-.ticker b{color:var(--cyan)}
-@keyframes marquee{to{transform:translateX(-50%)}}
-section{padding:100px 0}
-.section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:40px}
-.section-head h2,.about h2,.bmi h2{font-family:"Space Grotesk";font-size:clamp(36px,5vw,62px);line-height:1.05;letter-spacing:-3px;margin-top:16px}
-.section-head h2 span,.about h2 span,.bmi h2 span{color:var(--blue)}
-.section-head>p{max-width:340px;color:var(--muted);font-size:12px;line-height:1.9}
-.program-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.program{background:white;padding:24px;border:1px solid var(--line);position:relative;overflow:hidden;min-height:340px;transform-style:preserve-3d;transition:border-color .3s,box-shadow .3s}
-.program:hover{border-color:#91a9ff;box-shadow:0 22px 50px #172c5210}
-.program-top{display:flex;justify-content:space-between;font-size:9px;font-weight:800;letter-spacing:1px;color:var(--muted)}
-.program-top span:last-child{color:var(--blue)}
-.program-art{height:180px;display:grid;place-items:center;position:relative}
-.program-art svg{width:125px;height:125px;color:var(--blue);overflow:visible}
-.program:nth-child(2) svg{color:#11a8c7}
-.program:nth-child(3) svg{color:#17233c}
-.program h3{font-family:"Space Grotesk";font-size:19px;letter-spacing:-.6px}
-.program p{font-size:11px;line-height:1.8;color:var(--muted);margin-top:10px;max-width:260px}
-.program-arrow{position:absolute;right:22px;bottom:22px;color:var(--blue);font-size:21px}
-.about{background:var(--ink);color:white;overflow:hidden}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
-.about .eyebrow{color:var(--cyan)}
-.about .eyebrow:before{background:var(--cyan)}
-.about h2 span{color:var(--cyan)}
-.about-copy{font-size:12px;line-height:2;color:#abb5c5;margin-top:20px;max-width:450px}
-.about .btn{margin-top:27px;background:var(--cyan);border-color:var(--cyan);color:#101a2b}
-.about-art{height:400px;position:relative;display:grid;place-items:center;perspective:900px;background:radial-gradient(circle,#23395b 0,transparent 65%)}
-.about-art:before{content:"";position:absolute;width:310px;height:310px;border:1px solid #70e6f566;border-radius:50%;box-shadow:0 0 0 28px #70e6f50a,0 0 0 60px #70e6f508}
-.about-art:after{content:"";position:absolute;width:310px;height:310px;border:1px dashed #70e6f588;border-radius:50%;transform:rotateX(65deg);animation:spin 22s linear infinite}
-.about-cube{position:relative;width:140px;height:140px;transform-style:preserve-3d;animation:sculpture 16s linear infinite}
-.about-cube div{position:absolute;inset:0;border:2px solid var(--cyan);background:linear-gradient(140deg,#70e6f529,#245bff14);box-shadow:inset 0 0 35px #70e6f51a}
-.about-cube div:nth-child(1){transform:translateZ(70px)}
-.about-cube div:nth-child(2){transform:rotateY(90deg) translateZ(70px)}
-.about-cube div:nth-child(3){transform:rotateY(180deg) translateZ(70px)}
-.about-cube div:nth-child(4){transform:rotateY(-90deg) translateZ(70px)}
-.about-cube div:nth-child(5){transform:rotateX(90deg) translateZ(70px)}
-.about-cube div:nth-child(6){transform:rotateX(-90deg) translateZ(70px)}
-@keyframes spin{to{transform:rotateX(65deg) rotateZ(360deg)}}
-.about-label{position:absolute;left:0;bottom:25px;background:var(--cyan);color:var(--ink);font-size:10px;font-weight:800;letter-spacing:1px;padding:14px 17px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:50px}
-.stat{border-top:1px solid #ffffff2c;padding-top:17px}
-.stat strong{font-family:"Space Grotesk";font-size:34px;display:block}
-.stat span{font-size:9px;color:#9da9ba;letter-spacing:1px;text-transform:uppercase}
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
-.plan{background:white;border:1px solid var(--line);padding:29px;position:relative;transition:.3s}
-.plan:hover{transform:translateY(-6px);border-color:var(--blue)}
-.plan.featured{border:2px solid var(--blue)}
-.popular{position:absolute;right:16px;top:17px;color:var(--blue);font-size:8px;font-weight:800;letter-spacing:1px}
-.plan-label{font-size:9px;letter-spacing:2px;color:var(--blue);font-weight:800}
-.plan h3{font-family:"Space Grotesk";font-size:23px;margin-top:17px}
-.plan>p{font-size:11px;color:var(--muted);margin-top:7px}
-.price{font-family:"Space Grotesk";font-size:47px;font-weight:700;letter-spacing:-2px;margin:25px 0 4px}
-.price small{font-family:Manrope;font-size:11px;font-weight:500;letter-spacing:0;color:var(--muted)}
-.plan ul{list-style:none;margin:25px 0}
-.plan li{font-size:11px;padding:12px 0;border-bottom:1px solid var(--line);color:#626d7e}
-.plan li:before{content:"✓";color:var(--blue);font-weight:900;margin-right:10px}
-.plan .btn{width:100%}
-.plan:not(.featured) .btn{background:white;color:var(--ink);border-color:#ccd4e0}
-.plan:not(.featured) .btn:hover{background:var(--ink);color:white;border-color:var(--ink)}
-.bmi{background:#e8edf4}
-.bmi-grid{display:grid;grid-template-columns:1fr 1fr;gap:65px;align-items:center}
-.bmi-copy>p{font-size:12px;line-height:2;color:var(--muted);max-width:430px;margin-top:20px}
-.bmi-box{background:white;padding:30px;border:1px solid #dce3ed;box-shadow:0 20px 60px #253b5709}
-.bmi-box label{display:block;font-size:10px;font-weight:800;letter-spacing:1px;margin:18px 0 8px}
-.bmi-box input{width:100%;padding:14px;background:#f6f8fb;border:1px solid #dfe5ee;outline:none}
-.bmi-box input:focus{border-color:var(--blue)}
-.bmi-box .btn{width:100%;margin-top:20px}
-.result{margin-top:15px;padding:15px;background:#f1f5fc;border-left:3px solid var(--blue);font-size:11px;color:var(--muted);line-height:1.8}
-.result strong{font-family:"Space Grotesk";font-size:26px;color:var(--blue)}
-.coach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.coach{background:white;border:1px solid var(--line);padding:17px;transition:.3s}
-.coach:hover{transform:translateY(-5px);box-shadow:0 20px 40px #182e500c}
-.coach-art{height:235px;position:relative;overflow:hidden;display:grid;place-items:center;background:linear-gradient(140deg,#e5efff,#f4f7fc)}
-.coach-art:before{content:"";position:absolute;width:180px;height:180px;border:1px solid #245bff4c;border-radius:50%;box-shadow:0 0 0 22px #245bff08}
-.coach-art:after{content:"";position:absolute;width:135px;height:135px;border:1px dashed #245bff65;border-radius:50%;animation:spin 18s linear infinite}
-.person{width:83px;height:105px;position:relative;z-index:1;border-radius:45% 45% 12% 12%;background:linear-gradient(135deg,#253d72,#70b8ed);box-shadow:0 15px 40px #245bff28}
-.person:before{content:"";position:absolute;width:53px;height:55px;left:15px;top:-39px;border-radius:45% 45% 40% 40%;background:#d7a98e;border-top:12px solid #252b39}
-.coach:nth-child(2) .person{background:linear-gradient(135deg,#a8b9ce,#e0b3ac)}
-.coach:nth-child(3) .person{background:linear-gradient(135deg,#263650,#5a8f9b)}
-.coach h3{font-family:"Space Grotesk";font-size:17px;margin:18px 0 6px}
-.coach p{font-size:9px;font-weight:800;letter-spacing:1px;color:var(--blue)}
-.coach small{display:block;color:var(--muted);font-size:10px;margin-top:10px}
-.cta{background:var(--blue);color:white;text-align:center;padding:95px 0;position:relative;overflow:hidden}
-.cta:before{content:"APEX";position:absolute;font-family:"Space Grotesk";font-size:clamp(140px,30vw,340px);font-weight:800;letter-spacing:-20px;color:#ffffff0b;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
-.cta .container{position:relative}
-.cta .eyebrow{justify-content:center;color:var(--cyan)}
-.cta .eyebrow:before{background:var(--cyan)}
-.cta h2{font-family:"Space Grotesk";font-size:clamp(38px,6vw,70px);line-height:1.05;letter-spacing:-3px;margin:22px 0}
-.cta p{max-width:500px;margin:0 auto 28px;font-size:12px;line-height:1.9;color:#d8e1ff}
-.cta .btn{background:white;color:var(--blue);border-color:white}
-.cta .btn:hover{background:var(--ink);color:white;border-color:var(--ink)}
-footer{background:var(--ink);color:white;padding:27px 0}
-.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:10px;color:#a7b1c3}
-.footer-links{display:flex;gap:20px}
-.footer-links a:hover{color:var(--cyan)}
-.reveal{opacity:0;transform:translateY(25px);transition:opacity .7s,transform .7s}
-.reveal.visible{opacity:1;transform:translateY(0)}
-@media(max-width:800px){
- .nav-links{display:none;position:absolute;top:76px;left:0;right:0;background:#f3f5f7;padding:25px;flex-direction:column}
- .nav-links.open{display:flex}.menu{display:block}.nav-cta{display:none}
- .hero-grid,.about-grid,.bmi-grid{grid-template-columns:1fr}
- .hero{padding-top:125px}.stage{height:400px}
- .program-grid,.plans,.coach-grid{grid-template-columns:1fr 1fr}
- .section-head{align-items:flex-start;flex-direction:column}
- .about-grid,.bmi-grid{gap:35px}
+
+body{
+  background:#0f1020;
+  color:white;
 }
-@media(max-width:540px){
- .hero h1{font-size:59px;letter-spacing:-4px}
- .stage{height:330px;transform:scale(.88);margin:-15px 0}
- .program-grid,.plans,.coach-grid{grid-template-columns:1fr}
- .hero-stats{gap:18px}.hero-stats strong{font-size:19px}
- .stats{grid-template-columns:repeat(2,1fr);row-gap:25px}
- section{padding:75px 0}
- .about-art{height:330px}
- .footer-inner{align-items:flex-start;flex-direction:column}
- .footer-links{flex-wrap:wrap}
+
+.container{
+  display:flex;
+  flex-direction:row-reverse;
+  min-height:100vh;
 }
-@media(prefers-reduced-motion:reduce){
- *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
- .reveal{opacity:1;transform:none}
+
+.demo{
+  width:70%;
+  background:#111;
+  position:relative;
+}
+
+iframe{
+  width:100%;
+  height:100vh;
+  border:none;
+}
+
+.right{
+  width:30%;
+  padding:30px 22px;
+  background:linear-gradient(180deg,#181a35,#0b0c18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow-y:auto;
+}
+
+.box{
+  width:100%;
+  background:rgba(10,10,10,.88);
+  border:1px solid #FF8C2B;
+  border-radius:22px;
+  padding:26px 20px;
+  text-align:center;
+  box-shadow:0 0 35px rgba(255,140,43,.28);
+}
+
+.badge{
+  display:inline-block;
+  background:#FF8C2B;
+  color:#fff;
+  padding:8px 18px;
+  border-radius:30px;
+  font-weight:800;
+  margin-bottom:16px;
+}
+
+h1{
+  font-size:34px;
+  color:#FF8C2B;
+  margin-bottom:10px;
+  text-transform:uppercase;
+}
+
+.sub{
+  font-size:17px;
+  line-height:1.5;
+  margin-bottom:22px;
+  color:#eee;
+}
+
+.features{
+  display:grid;
+  gap:12px;
+  margin:22px 0;
+}
+
+.feature{
+  background:linear-gradient(90deg,#1b1b1b,#2b2208);
+  border:1px solid rgba(255,170,70,.55);
+  padding:14px;
+  border-radius:14px;
+  font-size:17px;
+  font-weight:700;
+}
+
+.feature span{
+  color:#FF8C2B;
+}
+
+/* Signup Button */
+.signup-btn{
+  display:inline-block;
+  margin-top:8px;
+  padding:9px 16px;
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+  border-radius:9px;
+  font-size:15px;
+  font-weight:800;
+  border:1px solid #1ebe5d;
+  transition:.3s;
+}
+
+.signup-btn:hover{
+  background:#1ebe5d;
+  transform:scale(1.03);
+}
+
+.website-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:16px;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.website-row a{
+  text-decoration:none;
+}
+
+.website{
+  color:#25D366;
+}
+
+.whatsapp-small{
+  color:#FF8C2B;
+}
+
+.cta{
+  display:block;
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+  padding:17px;
+  border-radius:16px;
+  font-size:20px;
+  font-weight:900;
+  margin-top:22px;
+  box-shadow:0 8px 18px rgba(37,211,102,.35);
+  transition:.3s;
+}
+
+.cta:hover{
+  transform:scale(1.03);
+  background:#1ebe5d;
+}
+
+/* Floating Signup Button */
+.floating-signup{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:50;
+  background:#FF8C2B;
+  color:#fff;
+  padding:12px 24px;
+  border-radius:8px;
+  font-size:18px;
+  font-weight:900;
+  border:3px solid #fff;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(255,140,43,0.6);
+  transition:.3s;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.floating-signup:hover{
+  transform:translateX(-50%) scale(1.08);
+  background:#E66A1A;
+  box-shadow:0 12px 25px rgba(255,140,43,0.8);
+}
+
+.trust{
+  margin-top:16px;
+  color:#ccc;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.footer{
+  margin-top:18px;
+  font-size:12px;
+  color:#aaa;
+  line-height:1.5;
+}
+
+@media(max-width:768px){
+  .container{
+    flex-direction:column-reverse;
+  }
+
+  .demo,
+  .right{
+    width:100%;
+  }
+
+  iframe{
+    height:500px;
+  }
+
+  .right{
+    padding:20px;
+  }
+}
+
+@media(max-width:480px){
+  h1{
+    font-size:28px;
+  }
+
+  .sub{
+    font-size:16px;
+  }
+
+  .feature{
+    font-size:16px;
+    padding:12px;
+  }
+
+  .signup-btn{
+    font-size:14px;
+    padding:8px 13px;
+  }
+
+  .cta{
+    font-size:18px;
+    padding:15px;
+  }
+
+  .website-row{
+    flex-direction:column;
+    gap:8px;
+  }
 }
 </style>
+
 </head>
+
 <body>
-<nav>
- <div class="container nav-inner">
-  <a href="#home" class="logo">APEX<span>.</span>MOTION</a>
-  <div class="nav-links" id="navLinks">
-   <a href="#programs">Training</a><a href="#about">Our Club</a><a href="#membership">Membership</a><a href="#coaches">Coaches</a>
+
+<div class="container">
+
+  <div class="demo">
+    <a href="https://icecric.com/clk?src=27705d9eff" target="_blank" rel="noopener noreferrer" class="floating-signup">🔥 CLICK ON SIGNUP 🔥</a>
+    <iframe src="https://icecric.com/clk?src=27705d9eff"></iframe>
   </div>
-  <a href="#membership" class="nav-cta">Start your journey ↗</a>
-  <button class="menu" id="menuBtn" aria-label="Toggle navigation">☰</button>
- </div>
-</nav>
 
-<header class="hero" id="home">
- <div class="container hero-grid">
-  <div class="hero-copy">
-   <div class="eyebrow">THE PERFORMANCE CLUB / EST. 2026</div>
-   <h1>MOVE<br>WITH <span>MORE.</span><br>BE MORE.</h1>
-   <p>A smarter space to build strength, improve performance and discover what your body can do. Your next level begins with your next move.</p>
-   <div class="hero-actions">
-    <a href="#membership" class="btn">Explore membership ↗</a>
-    <a href="#programs" class="btn btn-light">Discover training</a>
-   </div>
-   <div class="hero-stats">
-    <div><strong>10K+</strong><span>MEMBERS</span></div>
-    <div><strong>35+</strong><span>EXPERT COACHES</span></div>
-    <div><strong>24/7</strong><span>ACCESS</span></div>
-   </div>
+  <div class="right">
+    <div class="box">
+
+```
+  <div class="badge">AUTO WEBSITE</div>
+
+  <h1>Get Your ID Now</h1>
+
+  <p class="sub">
+    Fast auto website service with easy deposit support.
+    New users can start quickly through WhatsApp.
+  </p>
+
+  <div class="features">www.icecric.com
+
+    <div class="feature">
+      Minimum Deposit: <span>₹100 Only</span>
+    </div>
+
+    <div class="feature">
+      Welcome Bonus: <span>10%</span>
+    </div>
+
+    <div class="feature">
+      Auto Website Support:
+      <a
+        class="signup-btn"
+        href="https://icecric.com/clk?src=27705d9eff"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Click on Signup
+      </a>
+    </div>
+
+    <div class="feature">
+      Quick Help:
+      <span>Deposit &amp; Withdrawal Support</span>
+    </div>
+
   </div>
-  <div class="stage" id="stage">
-   <div class="stage-grid"></div>
-   <div class="stage-number">APX / OBJECT 001</div>
-   <div class="sculpture" id="sculpture">
-    <div class="face"></div><div class="face"></div><div class="face"></div>
-    <div class="face"></div><div class="face"></div><div class="face"></div>
-    <div class="sculpture-core"></div>
-   </div>
-   <div class="stage-label one">KINETIC FORM<span>3D MOTION SYSTEM</span></div>
-   <div class="stage-label two">PERFORMANCE / 001<span>BUILT FOR MOVEMENT</span></div>
+
+  <div class="website-row">
+
+    <a
+      class="website"
+      href="https://icecric.com/clk?src=27705d9eff"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      🌐 www.icecric.com
+    </a>
+
+    <a
+      class="whatsapp-small"
+      href="https://wa.me/+447542915762"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      💬 WhatsApp
+    </a>
+
   </div>
- </div>
-</header>
 
-<div class="ticker"><div class="ticker-track">
- <span>STRONGER EVERY DAY</span><b>✳</b><span>MOVE WITH PURPOSE</span><b>✳</b><span>YOUR BODY. YOUR POTENTIAL.</span><b>✳</b><span>STRONGER EVERY DAY</span><b>✳</b><span>MOVE WITH PURPOSE</span><b>✳</b><span>YOUR BODY. YOUR POTENTIAL.</span><b>✳</b>
-</div></div>
+  <a
+    class="cta"
+    href="https://wa.me/+447542915762?text=Hello%20I%20want%20new%20icecric%20ID"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    📲 WhatsApp Now
+  </a>
 
-<section id="programs">
- <div class="container">
-  <div class="section-head reveal">
-   <div><div class="eyebrow">01 / Training systems</div><h2>FIND YOUR<br><span>OWN MOMENTUM.</span></h2></div>
-   <p>Whether you're building muscle, increasing endurance or moving better, find a program designed around your goals.</p>
+  <p class="trust">
+    ✅ Trusted icecric Support<br>
+    ✅ Simple Process<br>
+    ✅ Fast Response
+  </p>
+
+  <div class="footer">
+    18+ Only | Play Responsibly | Follow Your Local Laws | T&amp;C Apply
   </div>
-  <div class="program-grid">
-   <article class="program reveal tilt">
-    <div class="program-top"><span>TRAINING / 01</span><span>STRENGTH</span></div>
-    <div class="program-art"><svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="48" stroke="currentColor" stroke-width="1" stroke-dasharray="3 6"/><path d="M18 43h18v34H18zM84 43h18v34H84zM36 52h48v16H36z" stroke="currentColor" stroke-width="3"/><path d="M60 12v96" stroke="currentColor" stroke-dasharray="4 6"/></svg></div>
-    <h3>Strength Lab</h3><p>Build power and confidence through progressive resistance training and expert guidance.</p><div class="program-arrow">↗</div>
-   </article>
-   <article class="program reveal tilt">
-    <div class="program-top"><span>TRAINING / 02</span><span>CONDITIONING</span></div>
-    <div class="program-art"><svg viewBox="0 0 120 120" fill="none"><path d="M60 8L74 43L112 60L74 77L60 112L46 77L8 60L46 43Z" stroke="currentColor" stroke-width="2"/><circle cx="60" cy="60" r="22" stroke="currentColor" stroke-width="2"/><path d="M60 38v44M38 60h44" stroke="currentColor"/></svg></div>
-    <h3>Pulse Training</h3><p>Challenge your endurance with energetic interval sessions and full-body circuits.</p><div class="program-arrow">↗</div>
-   </article>
-   <article class="program reveal tilt">
-    <div class="program-top"><span>TRAINING / 03</span><span>MOBILITY</span></div>
-    <div class="program-art"><svg viewBox="0 0 120 120" fill="none"><path d="M60 10L105 35V85L60 110L15 85V35Z" stroke="currentColor" stroke-width="2"/><path d="M15 35L60 60L105 35M60 60V110M15 85L60 60L105 85" stroke="currentColor"/><circle cx="60" cy="60" r="15" stroke="currentColor" stroke-width="2"/></svg></div>
-    <h3>Motion Studio</h3><p>Improve flexibility, balance and control with purposeful movement sessions.</p><div class="program-arrow">↗</div>
-   </article>
+
+</div>
+```
+
   </div>
- </div>
-</section>
 
-<section class="about" id="about">
- <div class="container about-grid">
-  <div class="reveal">
-   <div class="eyebrow">02 / The APEX standard</div>
-   <h2>BUILT AROUND<br><span>YOUR POTENTIAL.</span></h2>
-   <p class="about-copy">A thoughtful mix of high-quality equipment, dedicated coaching and motivating training spaces. Every detail is designed to help you build consistency and keep progressing.</p>
-   <a href="#coaches" class="btn">Meet the coaches ↗</a>
-   <div class="stats">
-    <div class="stat"><strong>18K</strong><span>Sq. ft. facility</span></div>
-    <div class="stat"><strong>120+</strong><span>Training stations</span></div>
-    <div class="stat"><strong>35</strong><span>Expert coaches</span></div>
-    <div class="stat"><strong>365</strong><span>Days to progress</span></div>
-   </div>
-  </div>
-  <div class="about-art reveal">
-   <div class="about-cube"><div></div><div></div><div></div><div></div><div></div><div></div></div>
-   <div class="about-label">FORM FOLLOWS FUNCTION.</div>
-  </div>
- </div>
-</section>
+</div>
 
-<section id="membership">
- <div class="container">
-  <div class="section-head reveal">
-   <div><div class="eyebrow">03 / Membership</div><h2>YOUR GOALS.<br><span>YOUR ACCESS.</span></h2></div>
-   <p>Choose the level that fits your routine. These sample plans can be edited to match your real membership options.</p>
-  </div>
-  <div class="plans">
-   <article class="plan reveal">
-    <div class="plan-label">01 / ESSENTIAL</div><h3>Foundation</h3><p>For your everyday routine.</p>
-    <div class="price">$29 <small>/ month</small></div>
-    <ul><li>Full gym access</li><li>Strength equipment</li><li>Locker facilities</li><li>Initial orientation</li></ul>
-    <a href="#contact" class="btn">Choose Foundation</a>
-   </article>
-   <article class="plan featured reveal">
-    <div class="popular">MOST POPULAR</div><div class="plan-label">02 / PERFORMANCE</div><h3>Momentum</h3><p>For consistent progress.</p>
-    <div class="price">$59 <small>/ month</small></div>
-    <ul><li>Everything in Foundation</li><li>Group training classes</li><li>Monthly progress review</li><li>Recovery area access</li></ul>
-    <a href="#contact" class="btn">Choose Momentum</a>
-   </article>
-   <article class="plan reveal">
-    <div class="plan-label">03 / ELITE</div><h3>Peak</h3><p>For a more guided journey.</p>
-    <div class="price">$99 <small>/ month</small></div>
-    <ul><li>Everything in Momentum</li><li>Personal coaching session</li><li>Custom workout plan</li><li>Priority class booking</li></ul>
-    <a href="#contact" class="btn">Choose Peak</a>
-   </article>
-  </div>
- </div>
-</section>
-
-<section class="bmi" id="bmi">
- <div class="container bmi-grid">
-  <div class="bmi-copy reveal">
-   <div class="eyebrow">04 / Body metrics</div>
-   <h2>KNOW YOUR<br><span>STARTING POINT.</span></h2>
-   <p>Calculate an estimated body mass index from your height and weight. BMI is a general screening measure, not a direct body-fat measurement or medical diagnosis.</p>
-  </div>
-  <div class="bmi-box reveal">
-   <div class="eyebrow">QUICK BMI CALCULATOR</div>
-   <label for="height">HEIGHT (CM)</label><input id="height" type="number" min="50" max="260" placeholder="Example: 175">
-   <label for="weight">WEIGHT (KG)</label><input id="weight" type="number" min="10" max="500" placeholder="Example: 75">
-   <button class="btn" id="calculate">Calculate BMI ↗</button>
-   <div class="result" id="result" aria-live="polite">Your BMI result will appear here.</div>
-  </div>
- </div>
-</section>
-
-<section id="coaches">
- <div class="container">
-  <div class="section-head reveal">
-   <div><div class="eyebrow">05 / Your support team</div><h2>GOOD COACHING.<br><span>REAL PROGRESS.</span></h2></div>
-   <p>Meet the team helping members train with intention, learn new skills and stay consistent.</p>
-  </div>
-  <div class="coach-grid">
-   <article class="coach reveal"><div class="coach-art"><div class="person"></div></div><h3>Daniel Brooks</h3><p>STRENGTH COACH</p><small>Strength development · Hypertrophy</small></article>
-   <article class="coach reveal"><div class="coach-art"><div class="person"></div></div><h3>Amelia Chen</h3><p>PERFORMANCE COACH</p><small>Conditioning · Athletic fitness</small></article>
-   <article class="coach reveal"><div class="coach-art"><div class="person"></div></div><h3>Ryan Ellis</h3><p>MOVEMENT COACH</p><small>Mobility · Core stability</small></article>
-  </div>
- </div>
-</section>
-
-<section class="cta" id="contact">
- <div class="container reveal">
-  <div class="eyebrow">YOUR NEXT CHAPTER STARTS NOW</div>
-  <h2>MAKE YOUR<br>NEXT MOVE.</h2>
-  <p>Build your routine, find your people and see what consistent effort can do. Your next level starts with one decision.</p>
-  <a href="mailto:hello@yourgym.com?subject=APEX%20MOTION%20Membership" class="btn">Join APEX MOTION ↗</a>
- </div>
-</section>
-
-<footer>
- <div class="container footer-inner">
-  <a href="#home" class="logo">APEX<span>.</span>MOTION</a>
-  <div>© <span id="year"></span> APEX MOTION PERFORMANCE CLUB</div>
-  <div class="footer-links"><a href="#programs">Training</a><a href="#membership">Membership</a><a href="#contact">Contact</a></div>
- </div>
-</footer>
-
-<script>
-document.getElementById('year').textContent=new Date().getFullYear();
-
-const menu=document.getElementById('menuBtn');
-const links=document.getElementById('navLinks');
-menu.addEventListener('click',()=>{
- links.classList.toggle('open');
- menu.textContent=links.classList.contains('open')?'✕':'☰';
-});
-links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
- links.classList.remove('open');menu.textContent='☰';
-}));
-
-const observer=new IntersectionObserver(entries=>{
- entries.forEach(entry=>{
-  if(entry.isIntersecting){
-   entry.target.classList.add('visible');
-   observer.unobserve(entry.target);
-  }
- });
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-const stage=document.getElementById('stage');
-const sculpture=document.getElementById('sculpture');
-if(matchMedia('(hover:hover) and (pointer:fine)').matches){
- stage.addEventListener('pointermove',e=>{
-  const r=stage.getBoundingClientRect();
-  const x=(e.clientX-r.left)/r.width-.5;
-  const y=(e.clientY-r.top)/r.height-.5;
-  sculpture.style.animation='none';
-  sculpture.style.transform=`rotateX(${-y*55}deg) rotateY(${x*60}deg) rotateZ(${x*15}deg)`;
- });
- stage.addEventListener('pointerleave',()=>{
-  sculpture.style.animation='';
-  sculpture.style.transform='';
- });
- document.querySelectorAll('.tilt').forEach(card=>{
-  card.addEventListener('pointermove',e=>{
-   const r=card.getBoundingClientRect();
-   const x=(e.clientX-r.left)/r.width-.5;
-   const y=(e.clientY-r.top)/r.height-.5;
-   card.style.transform=`perspective(800px) rotateX(${-y*7}deg) rotateY(${x*7}deg) translateY(-3px)`;
-  });
-  card.addEventListener('pointerleave',()=>card.style.transform='');
- });
-}
-
-document.getElementById('calculate').addEventListener('click',()=>{
- const h=Number(document.getElementById('height').value);
- const w=Number(document.getElementById('weight').value);
- const out=document.getElementById('result');
- if(!h||!w||h<50||h>260||w<10||w>500){
-  out.textContent='Please enter a valid height (50–260 cm) and weight (10–500 kg).';
-  return;
- }
- const bmi=w/((h/100)**2);
- let category='Obesity range';
- if(bmi<18.5)category='Underweight range';
- else if(bmi<25)category='Healthy weight range';
- else if(bmi<30)category='Overweight range';
- out.innerHTML=`<strong>${bmi.toFixed(1)}</strong><br>${category}<br><small>Adult BMI categories are general guidelines, not a diagnosis.</small>`;
-});
-</script>
 </body>
 </html>
