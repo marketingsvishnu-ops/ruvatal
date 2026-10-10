@@ -1,0 +1,887 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CricketID - India vs Afghanistan Live</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f6f8;
+    color: #17202a;
+}
+
+/* HEADER */
+header {
+    background: #071c2c;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    height: 72px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.logo-name {
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.logo-name span {
+    color: #19d66b;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #19d66b;
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(135deg, #061c2b, #0b5139);
+    color: white;
+    padding: 60px 20px;
+}
+
+.hero-inner {
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+}
+
+.live-badge {
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 30px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+.live-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    background: #ff3030;
+    border-radius: 50%;
+    margin-right: 7px;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    50% {
+        opacity: .3;
+    }
+}
+
+.hero h1 {
+    font-size: 46px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: #d4e0e5;
+    font-size: 17px;
+}
+
+/* MAIN */
+main {
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.section-title h2 {
+    font-size: 25px;
+}
+
+.view-all {
+    color: #087f45;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* MATCH CARD */
+.match-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px rgba(0,0,0,.08);
+    margin-bottom: 35px;
+}
+
+.match-header {
+    background: #092536;
+    color: white;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.match-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.match-subtitle {
+    color: #aebec7;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.status {
+    background: #f0a900;
+    color: #111;
+    padding: 7px 14px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status.live {
+    background: #e5232c;
+    color: white;
+}
+
+.status.completed {
+    background: #19b866;
+    color: white;
+}
+
+/* TEAMS */
+.teams {
+    padding: 35px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 25px;
+}
+
+.team {
+    text-align: center;
+}
+
+.flag {
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+.team h3 {
+    font-size: 23px;
+}
+
+.team small {
+    color: #77858d;
+}
+
+.vs {
+    font-size: 20px;
+    font-weight: 800;
+    color: #84919a;
+}
+
+/* COUNTDOWN */
+.countdown-box {
+    background: #f7f9fa;
+    border-top: 1px solid #e5eaed;
+    border-bottom: 1px solid #e5eaed;
+    padding: 25px;
+    text-align: center;
+}
+
+.countdown-title {
+    color: #65727a;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+#countdown {
+    font-size: 34px;
+    font-weight: 800;
+    color: #087f45;
+}
+
+/* MATCH DETAILS */
+.details {
+    padding: 25px 35px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.detail {
+    background: #f7f9fa;
+    border-radius: 10px;
+    padding: 17px;
+}
+
+.detail-title {
+    color: #78858d;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.detail-value {
+    font-weight: bold;
+}
+
+/* LIVE SCORE */
+.live-score {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 5px 25px rgba(0,0,0,.08);
+    margin-bottom: 35px;
+}
+
+.live-score-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.live-label {
+    color: #e5232c;
+    font-weight: bold;
+}
+
+.score-placeholder {
+    text-align: center;
+    padding: 40px 20px;
+    background: #f7f9fa;
+    border-radius: 12px;
+}
+
+.score-placeholder h3 {
+    margin-bottom: 10px;
+}
+
+.score-placeholder p {
+    color: #718089;
+    line-height: 1.6;
+}
+
+/* PREVIOUS RESULT */
+.previous {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 5px 25px rgba(0,0,0,.08);
+    margin-bottom: 35px;
+}
+
+.result-box {
+    margin-top: 18px;
+    background: #f7f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+.result {
+    color: #087f45;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+/* NEWS */
+.news-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-bottom: 45px;
+}
+
+.news-main,
+.news-side {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+}
+
+.news-main {
+    padding: 25px;
+}
+
+.news-main h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.news-main p {
+    color: #68767e;
+    line-height: 1.7;
+}
+
+.news-item {
+    padding: 20px;
+    border-bottom: 1px solid #edf0f2;
+}
+
+.news-item:last-child {
+    border-bottom: none;
+}
+
+.news-item small {
+    color: #087f45;
+    font-weight: bold;
+}
+
+.news-item h4 {
+    margin-top: 7px;
+    line-height: 1.4;
+}
+
+/* FOOTER */
+footer {
+    background: #071c2c;
+    color: white;
+    padding: 35px 20px;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.footer-logo {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.footer-logo span {
+    color: #19d66b;
+}
+
+.footer-text {
+    color: #91a1aa;
+    font-size: 13px;
+    margin-top: 7px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #cbd4d9;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+/* MOBILE */
+@media(max-width: 700px) {
+
+    nav {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .teams {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .vs {
+        font-size: 15px;
+    }
+
+    .details {
+        grid-template-columns: 1fr;
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+    }
+
+    #countdown {
+        font-size: 27px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="navbar">
+
+        <div class="logo">
+            <img src="logo.png" alt="CricketID Logo">
+            <div class="logo-name">
+                Cricket<span>ID</span>
+            </div>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#live">Live</a>
+            <a href="#matches">Matches</a>
+            <a href="#news">News</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="hero-inner">
+
+        <div class="live-badge">
+            <span class="live-dot"></span>
+            CRICKETID LIVE
+        </div>
+
+        <h1>India vs Afghanistan</h1>
+
+        <p>
+            Live scores, match updates, ball-by-ball commentary and cricket news.
+        </p>
+
+    </div>
+</section>
+
+
+<main>
+
+<!-- TODAY'S MATCH -->
+<div class="section-title" id="matches">
+    <h2>🏏 Today's Match</h2>
+</div>
+
+<section class="match-card">
+
+    <div class="match-header">
+
+        <div>
+            <div class="match-title">
+                India vs Afghanistan
+            </div>
+
+            <div class="match-subtitle">
+                2nd T20I · Afghanistan tour of India 2026
+            </div>
+        </div>
+
+        <div class="status" id="matchStatus">
+            UPCOMING
+        </div>
+
+    </div>
+
+
+    <div class="teams">
+
+        <div class="team">
+
+            <div class="flag">🇮🇳</div>
+
+            <h3>India</h3>
+
+            <small>IND</small>
+
+        </div>
+
+
+        <div class="vs">
+            VS
+        </div>
+
+
+        <div class="team">
+
+            <div class="flag">🇦🇫</div>
+
+            <h3>Afghanistan</h3>
+
+            <small>AFG</small>
+
+        </div>
+
+    </div>
+
+
+    <!-- COUNTDOWN -->
+    <div class="countdown-box">
+
+        <div class="countdown-title" id="countdownTitle">
+            MATCH STARTS IN
+        </div>
+
+        <div id="countdown">
+            Loading...
+        </div>
+
+    </div>
+
+
+    <!-- DETAILS -->
+    <div class="details">
+
+        <div class="detail">
+            <div class="detail-title">DATE</div>
+            <div class="detail-value">
+                15 September 2026
+            </div>
+        </div>
+
+        <div class="detail">
+            <div class="detail-title">START TIME</div>
+            <div class="detail-value">
+                7:30 PM IST
+            </div>
+        </div>
+
+        <div class="detail">
+            <div class="detail-title">VENUE</div>
+            <div class="detail-value">
+                Arun Jaitley Stadium, Delhi
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LIVE SCORE -->
+<div class="section-title" id="live">
+    <h2>🔴 Live Score</h2>
+</div>
+
+<section class="live-score">
+
+    <div class="live-score-header">
+
+        <h3>India vs Afghanistan</h3>
+
+        <div class="live-label">
+            ● LIVE SCORE
+        </div>
+
+    </div>
+
+
+    <div class="score-placeholder">
+
+        <h3 id="scoreTitle">
+            Match has not started
+        </h3>
+
+        <p id="scoreMessage">
+            Live score, wickets, overs and ball-by-ball updates
+            will appear here when the match begins.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- PREVIOUS MATCH -->
+<div class="section-title">
+    <h2>📊 Previous Match</h2>
+</div>
+
+<section class="previous">
+
+    <h3>1st T20I · 13 September 2026</h3>
+
+    <div class="result-box">
+
+        <div>
+            🇦🇫 Afghanistan
+            <strong>156/6</strong>
+        </div>
+
+        <div style="margin:12px 0;">
+            🇮🇳 India
+            <strong>157/3</strong>
+        </div>
+
+        <div class="result">
+            India won by 7 wickets
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- NEWS -->
+<div class="section-title" id="news">
+    <h2>📰 Latest Cricket News</h2>
+</div>
+
+<section class="news-grid">
+
+    <div class="news-main">
+
+        <h3>
+            India look to seal the T20I series against Afghanistan
+        </h3>
+
+        <p>
+            India enter the second T20I with a 1-0 series lead after
+            winning the opening match by seven wickets. Afghanistan
+            will look to bounce back in today's encounter.
+        </p>
+
+        <br>
+
+        <p>
+            The second T20I is being played at the Arun Jaitley Stadium
+            in Delhi.
+        </p>
+
+    </div>
+
+
+    <div class="news-side">
+
+        <div class="news-item">
+            <small>INDIA</small>
+            <h4>India lead the three-match series 1-0</h4>
+        </div>
+
+        <div class="news-item">
+            <small>AFGHANISTAN</small>
+            <h4>Afghanistan aim for a comeback</h4>
+        </div>
+
+        <div class="news-item">
+            <small>MATCH</small>
+            <h4>2nd T20I starts at 7:30 PM IST</h4>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="footer-inner">
+
+        <div>
+            <div class="footer-logo">
+                Cricket<span>ID</span>
+            </div>
+
+            <div class="footer-text">
+                Live cricket scores and updates.
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#live">Live Scores</a>
+            <a href="#matches">Matches</a>
+            <a href="#news">News</a>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+/*
+========================================
+CRICKETID MATCH TIMER
+========================================
+
+Match:
+India vs Afghanistan
+15 September 2026
+7:30 PM IST
+
+The timer automatically changes:
+UPCOMING -> LIVE -> COMPLETED
+========================================
+*/
+
+
+// India Standard Time
+const matchStart = new Date("2026-09-15T19:30:00+05:30");
+
+// Approximate match duration.
+// Change this if you want a different match window.
+const matchEnd = new Date("2026-09-15T23:00:00+05:30");
+
+
+function updateMatch() {
+
+    const now = new Date();
+
+    const status = document.getElementById("matchStatus");
+    const countdown = document.getElementById("countdown");
+    const title = document.getElementById("countdownTitle");
+    const scoreTitle = document.getElementById("scoreTitle");
+    const scoreMessage = document.getElementById("scoreMessage");
+
+
+    /*
+    BEFORE MATCH
+    */
+    if (now < matchStart) {
+
+        status.textContent = "UPCOMING";
+        status.className = "status";
+
+        title.textContent = "MATCH STARTS IN";
+
+        const difference = matchStart - now;
+
+        const hours = Math.floor(
+            difference / (1000 * 60 * 60)
+        );
+
+        const minutes = Math.floor(
+            (difference / (1000 * 60)) % 60
+        );
+
+        const seconds = Math.floor(
+            (difference / 1000) % 60
+        );
+
+        countdown.textContent =
+            String(hours).padStart(2, "0") + ":" +
+            String(minutes).padStart(2, "0") + ":" +
+            String(seconds).padStart(2, "0");
+
+        scoreTitle.textContent = "Match has not started";
+
+        scoreMessage.textContent =
+            "Live score, wickets, overs and ball-by-ball updates " +
+            "will appear here when the match begins.";
+
+    }
+
+
+    /*
+    MATCH LIVE
+    */
+    else if (now >= matchStart && now < matchEnd) {
+
+        status.textContent = "LIVE";
+        status.className = "status live";
+
+        title.textContent = "MATCH IS LIVE";
+
+        countdown.textContent = "🔴 LIVE";
+
+        scoreTitle.textContent =
+            "India 🇮🇳 vs Afghanistan 🇦🇫";
+
+        scoreMessage.textContent =
+            "Live score data will be displayed here once connected " +
+            "to your cricket score API.";
+
+    }
+
+
+    /*
+    MATCH COMPLETED
+    */
+    else {
+
+        status.textContent = "COMPLETED";
+        status.className = "status completed";
+
+        title.textContent = "MATCH STATUS";
+
+        countdown.textContent = "COMPLETED";
+
+        scoreTitle.textContent =
+            "India 🇮🇳 vs Afghanistan 🇦🇫";
+
+        scoreMessage.textContent =
+            "Final score will appear here after the match.";
+    }
+}
+
+
+// Update immediately
+updateMatch();
+
+// Update every second
+setInterval(updateMatch, 1000);
+
+</script>
+
+</body>
+</html>
+```
